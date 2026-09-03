@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KAP's Rentals — elegant tables, chairs, linens, and event essentials for celebrations worth remembering.">
+  <title>KAP's Rentals | Event Rentals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=6">
+</head>
+<body>
+  <header class="hero" id="home">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="KAP's Rentals home">
+        <img src="assets/763895429_122095187451435721_6691183396554912911_n.jpg" alt="KAP's Rentals logo">
+        <span>KAP'S RENTALS</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-menu">
+        <a class="active" href="#home">Home</a>
+        <a href="#home">Rentals</a>
+        <a href="#home">Packages</a>
+        <a href="#home">About</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <p class="eyebrow">Thoughtful details &middot; Beautiful celebrations</p>
+      <h1>Make every moment<br><em>worth remembering.</em></h1>
+      <p class="hero-description"></p>
+      <div class="hero-actions">
+        <a class="button button-light" href="#home">Explore rentals</a>
+        <a class="text-link" href="#home">View our packages <span>&rarr;</span></a>
+      </div>
+    </div>
+
+    <aside class="polaroid-showcase" aria-label="KAP's Rentals event gallery">
+      <div class="polaroid-deck">
+        <button class="polaroid-card" data-position="0" type="button" aria-label="Show the next event photo">
+          <img src="assets/495540685_9973876122663051_7082609385326729104_n.jpg" alt="Elegant table setting with gold details">
+          <span>KAP'S &nbsp;&mdash;&nbsp; 01</span>
+        </button>
+        <button class="polaroid-card" data-position="1" type="button" aria-label="Show the next event photo" tabindex="-1">
+          <img src="assets/495597223_9973876075996389_7934998877849556116_n.jpg" alt="Outdoor wedding reception setup">
+          <span>KAP'S &nbsp;&mdash;&nbsp; 02</span>
+        </button>
+        <button class="polaroid-card" data-position="2" type="button" aria-label="Show the next event photo" tabindex="-1">
+          <img src="assets/495620236_9973876132663050_1612636274745883723_n.jpg" alt="Floral centerpiece on a reception table">
+          <span>KAP'S &nbsp;&mdash;&nbsp; 03</span>
+        </button>
+        <button class="polaroid-card" data-position="3" type="button" aria-label="Show the next event photo" tabindex="-1">
+          <img src="assets/495514284_9973876402663023_412489628638256396_n.jpg" alt="Flower-covered entrance at an outdoor celebration">
+          <span>KAP'S &nbsp;&mdash;&nbsp; 04</span>
+        </button>
+      </div>
+      <p class="sr-only" aria-live="polite" id="gallery-status">Showing photo 1 of 4</p>
+    </aside>
+  </header>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.nav-menu');
+
+    menuButton.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      menuButton.classList.toggle('open', open);
+      menuButton.setAttribute('aria-expanded', open);
+      menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        menuButton.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const polaroids = [...document.querySelectorAll('.polaroid-card')];
+    const polaroidDeck = document.querySelector('.polaroid-deck');
+    const galleryStatus = document.getElementById('gallery-status');
+    let isCycling = false;
+
+    polaroids.forEach(card => {
+      card.addEventListener('click', () => {
+        if (card.dataset.position !== '0' || isCycling) return;
+
+        isCycling = true;
+        polaroidDeck.classList.add('is-shuffling');
+        card.classList.add('cycling');
+
+        card.addEventListener('animationend', () => {
+          card.classList.add('repositioning');
+          card.classList.remove('cycling');
+
+          polaroids.forEach(item => {
+            const nextPosition = (Number(item.dataset.position) + 3) % polaroids.length;
+            item.dataset.position = nextPosition;
+            item.tabIndex = nextPosition === 0 ? 0 : -1;
+          });
+
+          const visibleCard = polaroids.find(item => item.dataset.position === '0');
+          const visibleNumber = polaroids.indexOf(visibleCard) + 1;
+          galleryStatus.textContent = `Showing photo ${visibleNumber} of ${polaroids.length}`;
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => card.classList.remove('repositioning'));
+          });
+
+          window.setTimeout(() => {
+            polaroidDeck.classList.remove('is-shuffling');
+            isCycling = false;
+          }, 850);
+        }, { once: true });
+      });
+    });
+  </script>
+</body>
+</html>

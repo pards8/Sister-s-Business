@@ -1,0 +1,484 @@
+:root {
+  --white: #fffdf8;
+  --ink: #1d1c19;
+  --green: #25382d;
+  --gold: #c5a267;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Montserrat", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--white);
+  background: var(--green);
+  font-family: var(--sans);
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: url("assets/495514284_9973876402663023_412489628638256396_n.jpg") center 48% / cover no-repeat;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(8, 12, 9, 0.78) 0%, rgba(8, 12, 9, 0.49) 48%, rgba(8, 12, 9, 0.24) 100%),
+    linear-gradient(0deg, rgba(8, 12, 9, 0.52) 0%, transparent 43%);
+}
+
+.navbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  min-height: 104px;
+  padding: 18px clamp(24px, 5vw, 78px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  z-index: 10;
+  animation: nav-in 0.8s ease both;
+}
+
+@keyframes nav-in {
+  from { opacity: 0; transform: translateY(-18px); }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.brand img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 50%;
+  background: white;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(26px, 3.2vw, 54px);
+}
+
+.nav-menu a {
+  position: relative;
+  padding: 12px 0;
+  font-size: 0.73rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  right: 100%;
+  bottom: 4px;
+  left: 0;
+  height: 1px;
+  background: var(--white);
+  transition: right 0.25s ease;
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+  right: 0;
+}
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 18px;
+  height: 1px;
+  display: block;
+  margin: 5px auto;
+  background: white;
+  transition: transform 0.25s ease;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(760px, calc(100% - 48px));
+  margin-left: clamp(24px, 9vw, 150px);
+  padding: 145px 0 90px;
+}
+
+.hero-content > * {
+  opacity: 0;
+  animation: hero-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-content > :nth-child(1) { animation-delay: 0.15s; }
+.hero-content > :nth-child(2) { animation-delay: 0.28s; }
+.hero-content > :nth-child(3) { animation-delay: 0.41s; }
+.hero-content > :nth-child(4) { animation-delay: 0.54s; }
+
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 22px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 42px;
+  height: 1px;
+  background: var(--gold);
+}
+
+h1 {
+  max-width: 760px;
+  font-family: var(--serif);
+  font-size: clamp(4rem, 7vw, 7.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+}
+
+h1 em {
+  color: #f0d4a7;
+  font-weight: 500;
+}
+
+.hero-description {
+  max-width: 590px;
+  margin: 32px 0 35px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.92rem;
+  line-height: 1.85;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.button {
+  min-height: 54px;
+  padding: 0 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.25s, background 0.25s, border-color 0.25s;
+}
+
+.button-light {
+  color: var(--ink);
+  background: var(--white);
+}
+
+.button-light:hover {
+  color: var(--white);
+  border-color: var(--white);
+  background: transparent;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.text-link span {
+  transition: transform 0.25s ease;
+}
+
+.text-link:hover span {
+  transform: translateX(5px);
+}
+
+.polaroid-showcase {
+  position: absolute;
+  top: 54%;
+  right: clamp(48px, 7vw, 140px);
+  z-index: 3;
+  width: clamp(280px, 24vw, 390px);
+  transform: translateY(-50%);
+  perspective: 1200px;
+  animation: showcase-in 1s 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes showcase-in {
+  from { opacity: 0; transform: translate(55px, -47%); }
+  to { opacity: 1; transform: translate(0, -50%); }
+}
+
+.polaroid-deck {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 0.84;
+}
+
+.polaroid-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 17px 17px 0;
+  display: grid;
+  grid-template-rows: 1fr 72px;
+  gap: 0;
+  color: #28241f;
+  border: 0;
+  background: #fffefa;
+  box-shadow: 0 24px 46px rgba(0, 0, 0, 0.34), 0 5px 11px rgba(0, 0, 0, 0.25);
+  transform-origin: center center;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  transition:
+    transform 0.78s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.68s ease,
+    filter 0.68s ease,
+    box-shadow 0.68s ease;
+  cursor: grab;
+}
+
+.polaroid-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  filter: saturate(0.9) contrast(1.02);
+  pointer-events: none;
+}
+
+.polaroid-card > span {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  color: #292621;
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-align: left;
+  pointer-events: none;
+}
+
+.polaroid-card[data-position="0"] {
+  z-index: 4;
+  transform: translate3d(0, 0, 55px) rotate(0deg);
+  pointer-events: auto;
+}
+
+.polaroid-card[data-position="1"] {
+  z-index: 3;
+  opacity: 0.98;
+  filter: brightness(0.91);
+  transform: translate3d(-45px, -38px, 20px) rotate(-8deg) scale(0.97);
+  pointer-events: none;
+}
+
+.polaroid-card[data-position="2"] {
+  z-index: 2;
+  opacity: 0.95;
+  filter: brightness(0.86);
+  transform: translate3d(42px, -22px, 0) rotate(8deg) scale(0.95);
+  pointer-events: none;
+}
+
+.polaroid-card[data-position="3"] {
+  z-index: 1;
+  opacity: 0.9;
+  filter: brightness(0.8);
+  transform: translate3d(-55px, 22px, -20px) rotate(-13deg) scale(0.9);
+  pointer-events: none;
+}
+
+.polaroid-card[data-position="0"]:hover {
+  transform: translate3d(0, -18px, 70px) rotate(-1.25deg) scale(1.025);
+  box-shadow: 0 42px 76px rgba(0, 0, 0, 0.46), 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+
+.polaroid-card[data-position="0"]:active {
+  cursor: grabbing;
+}
+
+.polaroid-card[data-position="0"]:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 5px;
+}
+
+.polaroid-card.cycling {
+  z-index: 8;
+  pointer-events: none;
+  animation: cycle-card 0.62s cubic-bezier(0.45, 0, 0.4, 1) forwards;
+}
+
+@keyframes cycle-card {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 55px) rotate(0deg) scale(1);
+  }
+  45% {
+    opacity: 1;
+    transform: translate3d(38px, -24px, 82px) rotate(3.5deg) scale(1.025);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(165px, 18px, 90px) rotate(12deg) scale(0.96);
+  }
+}
+
+.polaroid-card.repositioning {
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+.polaroid-deck.is-shuffling .polaroid-card[data-position="0"] {
+  pointer-events: none;
+}
+
+.polaroid-deck.is-shuffling {
+  animation: deck-settle 0.82s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes deck-settle {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
+  45% { transform: translate3d(-7px, 3px, 0) rotate(-0.7deg); }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 1180px) {
+  .hero-content { width: min(620px, calc(100% - 48px)); }
+  h1 { font-size: clamp(4rem, 7vw, 6rem); }
+  .polaroid-showcase { right: 5vw; width: clamp(250px, 24vw, 315px); }
+}
+
+@media (max-width: 900px) {
+  .navbar { min-height: 86px; }
+  .brand img { width: 52px; height: 52px; }
+  .menu-toggle { display: block; position: relative; z-index: 5; }
+  .menu-toggle.open span:first-child { transform: translateY(3px) rotate(45deg); }
+  .menu-toggle.open span:last-child { transform: translateY(-3px) rotate(-45deg); }
+
+  .nav-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    height: 0;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    gap: 22px;
+    background: var(--green);
+    transition: height 0.35s ease;
+  }
+
+  .nav-menu.open { height: 100svh; }
+  .nav-menu a { font-family: var(--serif); font-size: 2.4rem; text-transform: none; }
+  .hero-content { width: min(56%, 520px); margin-left: 5vw; }
+  .polaroid-showcase { right: 6vw; width: min(31vw, 250px); }
+}
+
+@media (max-width: 620px) {
+  .brand span { font-size: 1.05rem; }
+  .hero { min-height: 100svh; background-position: 57% center; }
+  .hero::before { background: rgba(8, 12, 9, 0.64); }
+  .hero-content { width: calc(100% - 40px); padding: 130px 0 70px; }
+  h1 { font-size: clamp(3.6rem, 17vw, 5rem); }
+  .hero-actions { align-items: flex-start; flex-direction: column; gap: 25px; }
+  .polaroid-showcase {
+    top: auto;
+    right: -14px;
+    bottom: 24px;
+    width: 155px;
+    transform: none;
+    opacity: 0.75;
+    animation-name: showcase-in-mobile;
+  }
+  .polaroid-card { padding: 8px 8px 0; grid-template-rows: 1fr 30px; }
+  .polaroid-card > span { padding: 0 2px; font-size: 0.54rem; letter-spacing: 0.08em; }
+  @keyframes showcase-in-mobile {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 0.75; transform: translateX(0); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .navbar,
+  .hero-content > *,
+  .polaroid-showcase {
+    animation-duration: 0.01ms !important;
+  }
+}
